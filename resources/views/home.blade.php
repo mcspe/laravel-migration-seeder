@@ -18,33 +18,43 @@
 <body>
 
     <div class="container">
+        <h1 class="text-center my-4">Treni in partenza</h1>
         <table class="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Azienda</th>
+                <th scope="col">Città di partenza</th>
+                <th scope="col">Orario di partenza</th>
+                <th scope="col">Città di arrivo</th>
+                <th scope="col">Orario di arrivo</th>
+                <th scope="col">Codice treno</th>
+                <th scope="col">Numero di carrozze</th>
+                <th scope="col">In ritardo</th>
+                <th scope="col">Cancellato</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
+                @foreach ($trains as $train)
+                    <tr>
+                    <th scope="row">{{ strtoupper($train->company) }}</th>
+                    <td>{{ $train->departure_city }}</td>
+                    <td>{{ $train->departure_time }}</td>
+                    <td>{{ $train->arrival_city }}</td>
+                    <td>{{ $train->arrival_time }}</td>
+                    <td>{{ $train->train_code }}</td>
+                    <td>{{ $train->train_car }}</td>
+                    <td>
+                        @if (!$train->cancelled && !$train->on_time)
+                            &check;
+                        @endif
+                    </td>
+                    <td>
+                        @if ($train->cancelled)
+                            &check;
+                        @endif
+                    </td>
+                    </tr>
+                @endforeach
             </tbody>
           </table>
     </div>

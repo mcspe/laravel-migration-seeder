@@ -9,8 +9,8 @@ use App\Models\Train;
 class PageController extends Controller
 {
     public function index() {
-        //query
-        $trains= '';
+
+        $trains = Train::orderBy('departure_time')->get();
         return view('home', compact('trains'));
     }
 }
